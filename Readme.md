@@ -1,9 +1,25 @@
 # OSHW1
 ## Shared memory using POSIX API
-
-##How to use it
----
-### Compile
-	gcc shm_client.c -o shm_client && gcc shm_server.c -o shm_server
+##Screenshot
+###Server side
+![preview](s.png)
+###Client side
+![preview](c.png)
+##Instruction
+### Build
+	gcc shm_client.c -o shc && gcc shm_server.c -o shs
 ### Run
-	./shm_client && ./ shm_server
+	./shc && ./ shs
+
+###Client side
+If you want to add a data "apple", you need to input %apple.
+
+% is to store.
+
+	=> %apple
+If you want to print out all data you stored in server, use '$'.
+
+	=> $
+	
+###Server side
+Server is where you show your data and show if the input data exist or not.
