@@ -53,12 +53,12 @@ int ifExist(char * inputString, Memory * memory)
 	for (i = 0; i < memory->length; i++)
 	{
 		// if match
-		printf("%s%d\n", "(strcmp(memory->item[i].content, inputString))", (strcmp(memory->item[i].content, inputString)));
+		// printf("%s%d\n", "(strcmp(memory->item[i].content, inputString))", (strcmp(memory->item[i].content, inputString)));
 		if((strcmp(memory->item[i].content, inputString)) == isEqual)
 		{
 			memory->matchIndex = i;
-			printf("%s\n", "isEqual");
-			return isEqual;
+			// printf("%s\n", "isEqual");
+			return i;
 		}
 	}
 	memory->matchIndex = 0;
@@ -68,19 +68,35 @@ int ifExist(char * inputString, Memory * memory)
 void check(Memory * memory, char * inputString)
 {
 	int ex = ifExist(inputString, memory);
-	printf("%s\n", inputString);
+	// printf("%s\n", inputString);
 	if(ex != notExist)
 	{
 		printf("%s\n", "Yes, it matched!");
-		memory->item[memory->matchIndex].times += 1;
+		memory->item[ex].times += 1;
+		// memory->item[memory->matchIndex].times += 1;
 	}
 	else
 	{
 		printf("%s\n", "No, not matched!");
 		strcpy(memory->item[memory->index].content, inputString);
+		memory->item[memory->index].times = 1;
 		memory->index += 1;
-		printf("%s%d\n","memory->index = ", memory->index);
-		printf("%s%s\n","memory->item[memory->index].content = ", memory->item[memory->index].content);
+		
+		// printf("index = %d\n", memory->index);
+		// printf("memory->item[memory->index].times = %d\n", memory->item[memory->index].times);
+		// printf("%s%d\n","memory->index = ", memory->index);
+		// printf("%s%s\n","memory->item[memory->index].content = ", memory->item[memory->index].content);
+	}
+}
+
+void printTheMemory(Memory * memory)
+{
+	int i = 0;
+	// printf("memory->index%d\n", memory->index);
+	for (i = 0; i < memory->index; i++)
+	{
+		// printf("i=%d\n", i);
+		printf("%d: %s %d times\n", i, memory->item[i].content, memory->item[i].times);
 	}
 }
 
@@ -134,11 +150,19 @@ int main()
      		//string splitt here
 	    	while (spl != NULL) 
 	    	{
-				if(strlen(spl) != 0)
+				if (strlen(spl) != 0)
 				{
-					printf("%s\n", spl);
-					check(&memory,spl);
-
+					if (spl[0] == '$') //print out all
+					{
+						// printf("test print memory\n");
+						printTheMemory(&memory);
+					}
+					else if (spl[0] == '%') // add to memory
+					{
+						spl = &spl[1];
+						printf("%s\n", spl);
+						check(&memory,spl);
+					}
 				}
 		        counter += 1;
 		        spl = strtok(NULL, " ");
@@ -147,10 +171,10 @@ int main()
 			//printf("%s\n", word);
 			word[0] = '\0';// set to empty string to null while finished
 
-			for (i = 0; i < memory.length; i++)
-			{
-				printf("%d%s%s\n", i+1," string is = ",memory.item[i].content);
-			}
+			// for (i = 0; i < memory.length; i++)
+			// {
+			// 	printf("%d%s%s\n", i+1," string is = ",memory.item[i].content);
+			// }
 		}
 	}
 }
